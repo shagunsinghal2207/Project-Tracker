@@ -1,0 +1,10 @@
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\DataModelLayer.dll.config
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\DataModelLayer.dll
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\DataModelLayer.pdb
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\EntityFramework.dll
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\EntityFramework.SqlServer.dll
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\EntityFramework.xml
+D:\GLProjectsTracker\DataModelLayer\bin\Debug\EntityFramework.SqlServer.xml
+D:\GLProjectsTracker\DataModelLayer\obj\Debug\DataModelLayer.csprojResolveAssemblyReference.cache
+D:\GLProjectsTracker\DataModelLayer\obj\Debug\DataModelLayer.dll
+D:\GLProjectsTracker\DataModelLayer\obj\Debug\DataModelLayer.pdb

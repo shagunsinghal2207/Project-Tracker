@@ -1,0 +1,11 @@
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.dll
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\BusinessLogicLayer.pdb
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\DataAccessLayer.dll
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\DataModelLayer.dll
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\EntityFramework.dll
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\DataAccessLayer.pdb
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\DataModelLayer.pdb
+D:\GLProjectsTracker\BusinessLogicLayer\bin\Debug\EntityFramework.xml
+D:\GLProjectsTracker\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.csprojResolveAssemblyReference.cache
+D:\GLProjectsTracker\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.dll
+D:\GLProjectsTracker\BusinessLogicLayer\obj\Debug\BusinessLogicLayer.pdb

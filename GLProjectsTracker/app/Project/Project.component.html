@@ -1,0 +1,94 @@
+﻿<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        Project Management
+    </div>
+    <div class='panel-body'>
+        <div class='table-responsive'>
+            <div style="padding-bottom:10px"><button class="btn btn-primary" (click)="addProject()">Add</button></div>
+            <div class="alert alert-info" role="alert" *ngIf="indLoading"><img src="../../images/loading.gif" width="32" height="32" /> Loading...</div>
+            <div *ngIf='projects && projects.length==0' class="alert alert-info" role="alert">No record found!</div>
+            <table class='table table-striped' *ngIf='projects && projects.length'>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>ProjectUID</th>
+                        <th>ProjectCreatedon</th>
+                        <th>Status</th>
+                        <th>UserName</th>
+                        <th>StatusCreatedon</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let project of projects">
+                        <td>{{project.ProjectId}}</td>
+                        <td>{{project.Name}}</td>
+                        <td>{{project.ProjectUID}}</td>
+                        <td>{{project.ProjectCreatedOn}}</td>
+                        <td>{{project.Status}}</td>                        
+                        <td>{{project.UserName}}</td>
+                        <td>{{project.StatusCreatedOn}}</td>
+                        <td>
+                            <button title="Edit" class="btn btn-primary" (click)="editProject(project.ProjectId)">Edit</button>
+                            <button title="Delete" class="btn btn-danger" (click)="deleteProject(project.ProjectId)">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div>
+            </div>
+        </div>
+        <div *ngIf="msg" role="alert" class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Error:</span>
+            {{msg}}
+        </div>
+    </div>
+</div>
+
+<modal #modal>
+    <form novalidate (ngSubmit)="onSubmit(projectFrm)" [formGroup]="projectFrm" >
+        <modal-header [show-close]="true">
+            <h4 class="modal-title">{{modalTitle}}</h4>
+        </modal-header>
+        <modal-body>
+
+            <div class="form-group">
+                <div>
+                    <span>Name*</span>
+                    <input type="text" class="form-control" placeholder="Name" formControlName="Name">
+                </div>
+                <div>
+                    <span>ProjectUID</span>
+                    <input type="text" class="form-control" placeholder="ProjectUID" formControlName="ProjectUID">
+                </div>
+                <div>
+                    <span>Status</span>
+                    <select formControlName="StatusId" class="form-control"  >
+                        <option value="" disabled selected>Select Status</option>
+                        <option *ngFor="let pst of pstatus" [value]="pst.StatusId">{{pst.Name}}</option>
+                    </select>
+                    
+                   
+                </div>
+                <div>
+                    <span>UserName*</span>
+                    <select formControlName="UserId" class="form-control">
+                        <option value="" disabled selected>Select User</option>
+                        <option *ngFor="let pusr of puser" [value]="pusr.UserId">{{pusr.Name}}</option>
+                    </select>
+                   
+                    
+                </div>
+            </div>
+        </modal-body>
+        <modal-footer>
+            <div>
+                <a class="btn btn-default" (click)="modal.dismiss()">Cancel</a>
+                <button type="submit"  [disabled]="projectFrm.invalid" class="btn btn-primary">{{modalBtnTitle}}</button>
+            </div>
+        </modal-footer>
+    </form>
+</modal>

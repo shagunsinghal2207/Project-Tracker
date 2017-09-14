@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="GLProjectTrackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2005" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Projects">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" />
+          <Property Name="ProjectUID" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProjectStatus">
+          <Key>
+            <PropertyRef Name="ProjectStatusId" />
+          </Key>
+          <Property Name="ProjectStatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="500" />
+          <Property Name="Gender" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="RoleId" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK__ProjectSt__Proje__173876EA">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectSt__Statu__182C9B23">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectSt__UserI__1920BF5C">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleId__1A14E395">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_ProjectStatus">
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="1" />
+          <End Role="ProjectStatus1" Type="Self.ProjectStatus" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectStatus">
+              <PropertyRef Name="ProjectStatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus1">
+              <PropertyRef Name="ProjectStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GLProjectTrackerModelStoreContainer">
+          <EntitySet Name="Projects" EntityType="Self.Projects" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__ProjectSt__Proje__173876EA" Association="Self.FK__ProjectSt__Proje__173876EA">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectSt__Statu__182C9B23" Association="Self.FK__ProjectSt__Statu__182C9B23">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectSt__UserI__1920BF5C" Association="Self.FK__ProjectSt__UserI__1920BF5C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleId__1A14E395" Association="Self.FK__Users__RoleId__1A14E395">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_Projects" Association="Self.FK_ProjectStatus_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_ProjectStatus" Association="Self.FK_ProjectStatus_ProjectStatus">
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+            <End Role="ProjectStatus1" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_Status" Association="Self.FK_ProjectStatus_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GLProjectTrackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectId" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="ProjectUID" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProjectStatus" Relationship="Self.FK__ProjectSt__Proje__173876EA" FromRole="Projects" ToRole="ProjectStatus" />
+          <NavigationProperty Name="ProjectStatus1" Relationship="Self.FK_ProjectStatus_Projects" FromRole="Projects" ToRole="ProjectStatus" />
+        </EntityType>
+        <EntityType Name="ProjectStatu">
+          <Key>
+            <PropertyRef Name="ProjectStatusId" />
+          </Key>
+          <Property Name="ProjectStatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Project" Relationship="Self.FK__ProjectSt__Proje__173876EA" FromRole="ProjectStatus" ToRole="Projects" />
+          <NavigationProperty Name="Project1" Relationship="Self.FK_ProjectStatus_Projects" FromRole="ProjectStatus" ToRole="Projects" />
+          <NavigationProperty Name="Status" Relationship="Self.FK__ProjectSt__Statu__182C9B23" FromRole="ProjectStatus" ToRole="Status" />
+          <NavigationProperty Name="User" Relationship="Self.FK__ProjectSt__UserI__1920BF5C" FromRole="ProjectStatus" ToRole="Users" />
+          <NavigationProperty Name="ProjectStatus1" Relationship="Self.FK_ProjectStatus_ProjectStatus" FromRole="ProjectStatus" ToRole="ProjectStatus1" />
+          <NavigationProperty Name="ProjectStatu1" Relationship="Self.FK_ProjectStatus_ProjectStatus" FromRole="ProjectStatus1" ToRole="ProjectStatus" />
+          <NavigationProperty Name="Status1" Relationship="Self.FK_ProjectStatus_Status" FromRole="ProjectStatus" ToRole="Status" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="RoleId" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__RoleId__1A14E395" FromRole="Role" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusId" />
+          </Key>
+          <Property Name="StatusId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="ProjectStatus" Relationship="Self.FK__ProjectSt__Statu__182C9B23" FromRole="Status" ToRole="ProjectStatus" />
+          <NavigationProperty Name="ProjectStatus1" Relationship="Self.FK_ProjectStatus_Status" FromRole="Status" ToRole="ProjectStatus" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Email" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="RoleId" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProjectStatus" Relationship="Self.FK__ProjectSt__UserI__1920BF5C" FromRole="Users" ToRole="ProjectStatus" />
+          <NavigationProperty Name="Role" Relationship="Self.FK__Users__RoleId__1A14E395" FromRole="Users" ToRole="Role" />
+          <Property Name="IsDeleted" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK__ProjectSt__Proje__173876EA">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_Projects">
+          <End Role="Projects" Type="Self.Project" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="ProjectId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectSt__Statu__182C9B23">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProjectSt__UserI__1920BF5C">
+          <End Role="Users" Type="Self.User" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_ProjectStatus">
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="1" />
+          <End Role="ProjectStatus1" Type="Self.ProjectStatu" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="ProjectStatus">
+              <PropertyRef Name="ProjectStatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus1">
+              <PropertyRef Name="ProjectStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectStatus_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="ProjectStatus" Type="Self.ProjectStatu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="ProjectStatus">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__RoleId__1A14E395">
+          <End Role="Role" Type="Self.Role" Multiplicity="0..1" />
+          <End Role="Users" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleId" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GLProjectTrackerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <EntitySet Name="ProjectStatus" EntityType="Self.ProjectStatu" />
+          <EntitySet Name="Roles" EntityType="Self.Role" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="FK__ProjectSt__Proje__173876EA" Association="Self.FK__ProjectSt__Proje__173876EA">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_Projects" Association="Self.FK_ProjectStatus_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectSt__Statu__182C9B23" Association="Self.FK__ProjectSt__Statu__182C9B23">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProjectSt__UserI__1920BF5C" Association="Self.FK__ProjectSt__UserI__1920BF5C">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_ProjectStatus" Association="Self.FK_ProjectStatus_ProjectStatus">
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+            <End Role="ProjectStatus1" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectStatus_Status" Association="Self.FK_ProjectStatus_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ProjectStatus" EntitySet="ProjectStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__RoleId__1A14E395" Association="Self.FK__Users__RoleId__1A14E395">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GLProjectTrackerModelStoreContainer" CdmEntityContainer="GLProjectTrackerEntities">
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="GLProjectTrackerModel.Project">
+              <MappingFragment StoreEntitySet="Projects">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ProjectUID" ColumnName="ProjectUID" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProjectStatus">
+            <EntityTypeMapping TypeName="GLProjectTrackerModel.ProjectStatu">
+              <MappingFragment StoreEntitySet="ProjectStatus">
+                <ScalarProperty Name="ProjectStatusId" ColumnName="ProjectStatusId" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="GLProjectTrackerModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="GLProjectTrackerModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="GLProjectTrackerModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
